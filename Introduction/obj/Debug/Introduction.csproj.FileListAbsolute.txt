@@ -1,0 +1,6 @@
+D:\devFaina\LinqCourse\Introduction\bin\Debug\Introduction.exe.config
+D:\devFaina\LinqCourse\Introduction\bin\Debug\Introduction.exe
+D:\devFaina\LinqCourse\Introduction\bin\Debug\Introduction.pdb
+D:\devFaina\LinqCourse\Introduction\obj\Debug\Introduction.csprojAssemblyReference.cache
+D:\devFaina\LinqCourse\Introduction\obj\Debug\Introduction.exe
+D:\devFaina\LinqCourse\Introduction\obj\Debug\Introduction.pdb

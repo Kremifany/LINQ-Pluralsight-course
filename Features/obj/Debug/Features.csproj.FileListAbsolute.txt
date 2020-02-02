@@ -1,0 +1,6 @@
+D:\devFaina\LinqCourse\Features\bin\Debug\Features.exe.config
+D:\devFaina\LinqCourse\Features\bin\Debug\Features.exe
+D:\devFaina\LinqCourse\Features\bin\Debug\Features.pdb
+D:\devFaina\LinqCourse\Features\obj\Debug\Features.exe
+D:\devFaina\LinqCourse\Features\obj\Debug\Features.pdb
+D:\devFaina\LinqCourse\Features\obj\Debug\Features.csprojAssemblyReference.cache

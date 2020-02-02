@@ -1,0 +1,6 @@
+D:\devFaina\LinqCourse\Queries\bin\Debug\Queries.exe.config
+D:\devFaina\LinqCourse\Queries\bin\Debug\Queries.exe
+D:\devFaina\LinqCourse\Queries\bin\Debug\Queries.pdb
+D:\devFaina\LinqCourse\Queries\obj\Debug\Queries.csprojAssemblyReference.cache
+D:\devFaina\LinqCourse\Queries\obj\Debug\Queries.exe
+D:\devFaina\LinqCourse\Queries\obj\Debug\Queries.pdb
