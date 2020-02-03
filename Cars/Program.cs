@@ -28,9 +28,20 @@ namespace Cars
                     car.Combined,
                     car.Year
                 };
+            var query2 =
+                cars.Join(manufacturers,
+                          c => c.Manufacturer,
+                          m => m.Name, (c, m) => new
+                          {
+                              m.Headquarters,
+                              c.Name,
+                              c.Combined,
+                              c.Year
+                          })
+                    .OrderByDescending(c => c.Combined)
+                    .ThenBy(c => c.Name);
             
-            
-            foreach (var car in query.Take(10))
+            foreach (var car in query2.Take(10))
             {
                 Console.WriteLine($"{car.Headquarters}--{car.Year}-{car.Name} : {car.Combined}");
             }
