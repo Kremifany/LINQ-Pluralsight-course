@@ -14,44 +14,14 @@ namespace Cars
             var cars = ProcessCars("fuel.csv");
             var manufacturers = ProcessManufacturers("manufacturers.csv");
 
-            
             var query =
                 from car in cars
-                join manufacturer in manufacturers 
-                    on new { car.Manufacturer, car.Year } 
-                        equals
-                        new { Manufacturer = manufacturer.Name, manufacturer.Year }
-                orderby car.Combined descending, car.Name ascending
-                select new
-                {
-                    manufacturer.Headquarters,
-                    car.Name,
-                    car.Combined,
-                    car.Year
-                };
-            var query2 =
-                cars.Join(manufacturers,
-                          c => new { c.Manufacturer, c.Year },
-                          m => new { Manufacturer = m.Name, m.Year }
-                          , (c, m) => new
-                          {
-                              m.Headquarters,
-                              c.Name,
-                              c.Combined,
-                              c.Year
-                          })
-                    .OrderByDescending(c => c.Combined)
-                    .ThenBy(c => c.Name);
- 
-
-            foreach (var car in query.Take(10))
+                group car by car.Manufacturer;
+            foreach( var result in query)
             {
-                Console.WriteLine($"{car.Headquarters}--{car.Year}-{car.Name} : {car.Combined}");
+                Console.WriteLine($"{result.Key} has {result.Count()} cars");
             }
-
-
            
-
         }
         private static List<Car> ProcessCars(string path)
         {
