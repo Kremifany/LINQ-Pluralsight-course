@@ -16,16 +16,20 @@ namespace Cars
 
             var query =
                 from car in cars
-                group car by car.Manufacturer;
+                group car by car.Manufacturer.ToUpper() into manufacturer
+                orderby manufacturer.Key
+                select manufacturer;
+            var query2 =
+                cars.GroupBy(c => c.Manufacturer.ToUpper())
+                .OrderBy(g => g.Key);
 
-            foreach( var group in query)
+            foreach( var group in query2)
             {
                 Console.WriteLine(group.Key);
-                foreach (var car in group.OrderByDescending(c => c.Combined).Take(2))
+                foreach (var car in group.OrderByDescending(c => c.Combined).Take(1))
                 {
                     Console.WriteLine($"\t{car.Name} : {car.Combined}");
                 }
-
             }
            
         }
