@@ -5,3 +5,11 @@ D:\devFaina\LinqCourse\Cars\bin\Debug\Cars.pdb
 D:\devFaina\LinqCourse\Cars\obj\Debug\Cars.csprojAssemblyReference.cache
 D:\devFaina\LinqCourse\Cars\obj\Debug\Cars.exe
 D:\devFaina\LinqCourse\Cars\obj\Debug\Cars.pdb
+D:\devFaina\LinqCourse\LINQ-Pluralsight-course\Cars\bin\Debug\fuel.csv
+D:\devFaina\LinqCourse\LINQ-Pluralsight-course\Cars\bin\Debug\Cars.exe.config
+D:\devFaina\LinqCourse\LINQ-Pluralsight-course\Cars\bin\Debug\Cars.exe
+D:\devFaina\LinqCourse\LINQ-Pluralsight-course\Cars\bin\Debug\Cars.pdb
+D:\devFaina\LinqCourse\LINQ-Pluralsight-course\Cars\obj\Debug\Cars.csprojAssemblyReference.cache
+D:\devFaina\LinqCourse\LINQ-Pluralsight-course\Cars\obj\Debug\Cars.exe
+D:\devFaina\LinqCourse\LINQ-Pluralsight-course\Cars\obj\Debug\Cars.pdb
+D:\devFaina\LinqCourse\LINQ-Pluralsight-course\Cars\bin\Debug\manufacturers.csv

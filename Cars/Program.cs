@@ -11,47 +11,63 @@ namespace Cars
     {
         static void Main(string[] args)
         {
-            var cars = ProcessFile("fuel.csv");
+            var cars = ProcessCars("fuel.csv");
+            var manufacturers = ProcessManufacturers("manufacturers.csv");
 
-            var result = cars.All(c => c.Manufacturer == "BMW");
-            Console.WriteLine(result);
+            
             var query =
                 from car in cars
-                where car.Manufacturer == "BMW"
+                join manufacturer in manufacturers 
+                on car.Manufacturer equals manufacturer.Name
+                
                 orderby car.Combined descending, car.Name ascending
-                select car;
-            var top = cars.Where(c => c.Manufacturer == "BMW" && c.Year == 2016)
-                             .OrderByDescending(c => c.Combined)
-                             .ThenBy(c => c.Name)
-                             .Select(c => c)
-                             .First();
-            Console.WriteLine(top.Name);
-            //var query = cars.OrderByDescending(c => c.Combined)
-            //                .ThenBy(c => c.Name);
+                select new
+                {
+                    manufacturer.Headquarters,
+                    car.Name,
+                    car.Combined,
+                    car.Year
+                };
+            
+            
             foreach (var car in query.Take(10))
             {
-                Console.WriteLine($":{car.Manufacturer}--{car.Year}-{car.Name} : {car.Combined}");
+                Console.WriteLine($"{car.Headquarters}--{car.Year}-{car.Name} : {car.Combined}");
             }
-            //foreach (var car in cars)
-            //{
-            //    console.writeline(car.name);
-            //}
+
+
+           
+
         }
-        private static List<Car> ProcessFile(string path)
+        private static List<Car> ProcessCars(string path)
         {
-            //return
-            //    File.ReadAllLines(path)
-            //        .Skip(1)
-            //        .Where(line => line.Length > 1)
-            //        .Select(Car.ParseFromCsv)
-            //        .ToList();
             var query =
                 File.ReadAllLines(path)
                     .Skip(1)
                     .Where(l => l.Length > 1)
                     .ToCar();
-
+           
             return query.ToList();
+        }
+    
+        private static List<Manufacturer>ProcessManufacturers(string path)
+        {
+            var query =
+                File.ReadAllLines(path)
+                    .Skip(1)
+                    .Where(l => l.Length > 1)
+                    .Select(l =>
+                     {
+                         var columns = l.Split(',');
+                         return new Manufacturer
+                         {
+                             Name = columns[0],
+                             Headquarters = columns[1],
+                             Year = int.Parse(columns[2])
+                         };
+                     });
+
+        return query.ToList();
         }
     }
     public static class CarExtensions
