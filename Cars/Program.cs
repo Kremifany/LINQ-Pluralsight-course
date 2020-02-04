@@ -25,6 +25,19 @@ namespace Cars
                     Cars = carGroupByManufacturerName
                 };
 
+            var query3 =
+                from manufacturer in manufacturers
+                join car in cars on manufacturer.Name equals car.Manufacturer
+                    into carGroup
+                orderby manufacturer.Headquarters
+                select new
+                {
+                    Manufacturer = manufacturer,
+                    Cars = carGroup
+                } into result
+                group result by result.Manufacturer.Headquarters;
+
+
 
 
             var query2 =
@@ -35,10 +48,10 @@ namespace Cars
                      Cars = g
                  }).OrderBy(m => m.Manufacturer.Name);
 
-            foreach (var group in query2)
+            foreach (var group in query3)
             {
-                Console.WriteLine($"{group.Manufacturer.Name} : {group.Manufacturer.Headquarters}");
-                foreach (var car in group.Cars.OrderByDescending(c => c.Combined).Take(2))
+                Console.WriteLine($"{group.Key}");
+                foreach (var car in group.SelectMany(g =>g.Cars).OrderByDescending(c => c.Combined).Take(3))
                 {
                     Console.WriteLine($"\t{car.Name} : {car.Combined}");
                 }
@@ -89,7 +102,7 @@ namespace Cars
                     Manufacturer = columns[1],
                     Name = columns[2],
                     Displacement = double.Parse(columns[3]),
-                    Cilinders = int.Parse(columns[4]),
+                    Cylinders = int.Parse(columns[4]),
                     City = int.Parse(columns[5]),
                     Highway = int.Parse(columns[6]),
                     Combined = int.Parse(columns[7])
