@@ -13,16 +13,18 @@ namespace Cars
         static void Main(string[] args)
         {
             var records = ProcessCars("fuel.csv");
+
             var document = new XDocument();
             var cars = new XElement("Cars");
+
             foreach (var record in records)
             {
-                var car = new XElement("Car");
+
                 var name = new XElement("Name", record.Name);
                 var combined = new XElement("Combined", record.Combined);
+                var car = new XElement("Car", name, combined);
+
                 cars.Add(car);
-                cars.Add(name);
-                cars.Add(combined);
             }
             document.Add(cars);
             document.Save("fuel.xml");
