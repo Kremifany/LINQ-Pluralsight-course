@@ -12,6 +12,25 @@ namespace Cars
     {
         static void Main(string[] args)
         {
+            CreateXml();
+            QueryXml();
+        }
+
+        private static void QueryXml()
+        {
+            var document = XDocument.Load("fuel.xml");
+            var query =
+                from element in document.Element("Cars").Elements("Car")
+                where element.Attribute("Manufacturer").Value == "BMW"
+                select element.Attribute("Name").Value;
+            foreach(var name in query)
+            {
+                Console.WriteLine(name);
+            }
+                }
+
+        private static void CreateXml()
+        {
             var records = ProcessCars("fuel.csv");
 
             var document = new XDocument();
@@ -23,11 +42,11 @@ namespace Cars
                     new XAttribute("Manufacturer", record.Manufacturer))
                 );
 
-      
+
             document.Add(cars);
             document.Save("fuel.xml");
-                
         }
+
         private static List<Car> ProcessCars(string path)
         {
             var query =
