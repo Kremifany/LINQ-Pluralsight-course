@@ -6,6 +6,7 @@ using System.Xml.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Data.Entity;
+using System.Linq.Expressions;
 
 namespace Cars
 {
@@ -13,19 +14,44 @@ namespace Cars
     {
         static void Main(string[] args)
         {
-            Database.SetInitializer(new DropCreateDatabaseIfModelChanges<CarDb>());
-            InsertData();
+            Func<int, int> square = c => c * c;
+            Expression<Func<int, int, int>> add = (x, y) => x + y;
+            Func<int, int, int> addI = add.Compile();//add invokable,
+                                                     //we compiling the expression code into a func so we could execute
+
+            var result = addI(3, 5);
+            Console.WriteLine(result);
+            Console.WriteLine(add);
+             
+
+
+            //Database.SetInitializer(new DropCreateDatabaseIfModelChanges<CarDb>());
+            //InsertData();
             //QueryData();
         }
 
         private static void QueryData()
         {
+            var db = new CarDb();
+            db.Database.Log = Console.WriteLine;
+            
+            //var query = from car in db.Cars
+            //            orderby car.Combined descending, car.Name ascending
+            //            select car;
+            var query =
+                db.Cars.OrderByDescending(c => c.Combined).ThenBy(c => c.Name).Take(10);
+            foreach (var car in query)
+            {
+                Console.WriteLine($"{car.Name} :  {car.Combined}");
+            }
         }
 
         private static void InsertData()
         {
             var cars = ProcessCars("fuel.csv");
             var db = new CarDb();
+            
+
             if (!db.Cars.Any())
             {
                 foreach (var car in cars)
