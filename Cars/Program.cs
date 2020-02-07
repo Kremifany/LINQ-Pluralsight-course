@@ -26,25 +26,34 @@ namespace Cars
             db.Database.Log = Console.WriteLine;
 
             var query =
-                db.Cars.GroupBy(c => c.Manufacturer)
-                       .Select(g => new
-                       {
-                           Name = g.Key,
-                           Cars = g.OrderByDescending(c => c.Combined).Take(2)
-                       });
+                from car in db.Cars
+                group car by car.Manufacturer into manufacturer
+                select new
+                {
+                    Name = manufacturer.Key,
+                    //Cars = manufacturer.OrderByDescending(c => c.Combined).Take(2)
+                    Cars = (from car in manufacturer
+                           orderby car.Combined descending
+                           select car).Take(2)
+                };
+
+
+            //foreach (var car in query.Take(10))
+            //{
+            //    Console.WriteLine($"{car.Name} :  {car.Combined}");
+            //}
+
+
+
+
             foreach (var group in query)
             {
                 Console.WriteLine(group.Name);
                 foreach (var car in group.Cars)
                 {
                     Console.WriteLine($"\t {car.Name} : {car.Combined}");
-                }                 
+                }
             }
-            //Console.WriteLine(query.Count());
-            //foreach (var car in query)
-            //{
-            //    Console.WriteLine($"{car.Name} :  {car.Combined}");
-            //}
         }
 
         private static void InsertData()
